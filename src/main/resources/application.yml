@@ -1,0 +1,11 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: Spring-boot-connrdinates-8081
+logging:
+  level:
+    root: debug
