@@ -27,6 +27,7 @@ public class ReadExcel {
 
     /**
      * 读取Excel文档列数据
+     *
      * @param file Excel文件
      * @return 返回列数据List数据集合
      */
@@ -43,7 +44,9 @@ public class ReadExcel {
                     List<Object> innerList = new ArrayList<>();
                     for (int j = 0; j < sheet.getColumns(); j++) {
                         String cellinfo = sheet.getCell(i, j).getContents();
-                        if (cellinfo.isEmpty()) { continue; }
+                        if (cellinfo.isEmpty()) {
+                            continue;
+                        }
                         innerList.add(cellinfo);
                     }
                     outerCellList.add(innerList);
@@ -54,12 +57,14 @@ public class ReadExcel {
         }
         return outerCellList;
     }
+
     /**
      * 读取Excel文档行数据
+     *
      * @param file Excel文件
      * @return 返回行数据List数据集合
      */
-    public  List<Cell[]> readRowsExcel(File file) {
+    public List<Cell[]> readRowsExcel(File file) {
         List<Cell[]> outerRowsList = new ArrayList<>();
         try {
             System.out.println(file.getAbsolutePath());

@@ -33,7 +33,7 @@ public class WriteExcel {
     private static final String _L_STR = "_L(经度)";//表格中度分秒经度的标记
     private static final double L0 = 111.00000708333333;
     private static final double K0 = 1.0; //投影比例因子
-    private int x = -1, y = -1, B = -1, L = -1,_B = -1,_L = -1;
+    private int x = -1, y = -1, B = -1, L = -1, _B = -1, _L = -1;
 
     public Integer writeExcel(String finalXlsxPath) {
         OutputStream out = null;
@@ -57,7 +57,7 @@ public class WriteExcel {
                     wb.write(out);
                 }
                 getColumnLabel(list.get(0));
-                if(x == -1 || y == -1 || B == -1 || L == -1 || _B == -1 || _L == -1){
+                if (x == -1 || y == -1 || B == -1 || L == -1 || _B == -1 || _L == -1) {
                     logger.error("数据格式错误");
                     return -1;
                 }
@@ -119,7 +119,7 @@ public class WriteExcel {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                logger.error("数据写入失败",e.getMessage());
+                logger.error("数据写入失败", e.getMessage());
             }
         }
         return 1;
@@ -132,7 +132,7 @@ public class WriteExcel {
      * @return 获取Workbook
      * @throws Exception
      */
-     public Workbook getWorkbook(File file) throws Exception {
+    public Workbook getWorkbook(File file) throws Exception {
 
         Workbook wb = null;
         FileInputStream is = new FileInputStream(file);
