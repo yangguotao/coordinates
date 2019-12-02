@@ -25,15 +25,17 @@ public class WriteExcel {
     private Logger logger = LoggerFactory.getLogger(WriteExcel.class);
     private static final String EXCEL_XLS = "xls";//2003版
     private static final String EXCEL_XLSX = "xlsx";//2007/2010
-    private static final String X_STR = "x轴(7)";//表格中x轴的列数
-    private static final String Y_STR = "y轴(6)";//表格中x轴的列数
-    private static final String B_STR = "B(纬度)";//表格中x轴的列数
-    private static final String L_STR = "L(经度)";//表格中x轴的列数
+    private static final String X_STR = "x轴(7)";//表格中x轴的标记
+    private static final String Y_STR = "y轴(6)";//表格中x轴的标记
+    private static final String B_STR = "B(纬度)";//表格中十进制纬度的标记
+    private static final String L_STR = "L(经度)";//表格中十进制经度的标记
+    private static final String _B_STR = "_B(纬度)";//表格中度分秒纬度的标记
+    private static final String _L_STR = "_L(经度)";//表格中度分秒经度的标记
     private static final double L0 = 111.00000708333333;
     private static final double K0 = 1.0; //投影比例因子
-    private int x = -1, y = -1, B = -1, L = -1;
+    private int x = -1, y = -1, B = -1, L = -1,_B = -1,_L = -1;
 
-    public String writeExcel(String finalXlsxPath) {
+    public Integer writeExcel(String finalXlsxPath) {
         OutputStream out = null;
         try {
             int sheetRowNum = 0;
@@ -55,7 +57,11 @@ public class WriteExcel {
                     wb.write(out);
                 }
                 getColumnLabel(list.get(0));
-                //写入数据行15
+                if(x == -1 || y == -1 || B == -1 || L == -1 || _B == -1 || _L == -1){
+                    logger.error("数据格式错误");
+                    return -1;
+                }
+                //写入数据
                 for (int i = 1; i < list.size(); i++) {
                     jxl.Cell[] list2 = list.get(i);
                     Row newRow = sheet.createRow(i);
@@ -90,6 +96,13 @@ public class WriteExcel {
                             Cell BCell = newRow.createCell(B);
                             LCell.setCellValue(ll[0]);
                             BCell.setCellValue(ll[1]);
+                            //转换数据格式：度分秒
+                            String _l = LonAndLatFormat.DecimalRpm(ll[0]);
+                            String _b = LonAndLatFormat.DecimalRpm(ll[1]);
+                            Cell _LCell = newRow.createCell(_L);
+                            Cell _BCell = newRow.createCell(_B);
+                            _LCell.setCellValue(_l);
+                            _BCell.setCellValue(_b);
                         }
                     }
                 }
@@ -106,9 +119,10 @@ public class WriteExcel {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                logger.error("数据写入失败",e.getMessage());
             }
         }
-        return "数据导出成功";
+        return 1;
     }
 
     /**
@@ -118,7 +132,7 @@ public class WriteExcel {
      * @return 获取Workbook
      * @throws Exception
      */
-    public Workbook getWorkbook(File file) throws Exception {
+     public Workbook getWorkbook(File file) throws Exception {
 
         Workbook wb = null;
         FileInputStream is = new FileInputStream(file);
@@ -149,6 +163,12 @@ public class WriteExcel {
             }
             if (sign.equals(L_STR)) {
                 L = i;
+            }
+            if (sign.equals(_B_STR)) {
+                _B = i;
+            }
+            if (sign.equals(_L_STR)) {
+                _L = i;
             }
         }
     }

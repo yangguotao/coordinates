@@ -26,7 +26,7 @@ public class ReadExcel {
     private Logger logger = LoggerFactory.getLogger(ReadExcel.class);
 
     /**
-     * 读取Excel文档
+     * 读取Excel文档列数据
      * @param file Excel文件
      * @return 返回列数据List数据集合
      */
@@ -55,7 +55,7 @@ public class ReadExcel {
         return outerCellList;
     }
     /**
-     * 读取Excel文档
+     * 读取Excel文档行数据
      * @param file Excel文件
      * @return 返回行数据List数据集合
      */

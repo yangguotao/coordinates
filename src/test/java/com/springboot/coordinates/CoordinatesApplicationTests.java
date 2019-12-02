@@ -17,8 +17,9 @@ class CoordinatesApplicationTests {
 //                    System.out.println(cell.getContents());
 //                }
 //            }
-           String test =  new WriteExcel().writeExcel("H:/测试文件.xls");
-//           System.out.println(test);
+           Integer test =  new WriteExcel().writeExcel("H:/测试文件.xls");
+           if(test==1)
+              System.out.println("转换成功");
 //            List<Cell[]> list2 = new ReadExcel().readRowsExcel(file);
 //            for (Cell[] o : list2) {
 //                for (Cell cell : o) {
