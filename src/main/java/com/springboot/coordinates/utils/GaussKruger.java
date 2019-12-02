@@ -8,7 +8,6 @@ public class GaussKruger {
   public static final double b = 6356752.3142;//6356755;椭球短半径
   public static final double e1 = 1 - (b/a) * (b/a);//椭球第一偏心率平方
   public static final double e2 = (a/b) * (a/b) - 1;//椭球第二偏心率平方
- // public static final double k1 = 1 - 0.25*e1 - 0.046875*e1*e1 - 0.01953125*e1*e1*e1; //正算常量系数k1
   public static final double k1 = 1 - 0.25*e1 - 3*e1*e1/64 - 5*e1*e1*e1/256; //正算常量系数k1
   public static final double k2 = -3*e1/8 - 3*e1*e1/32 - 45*e1*e1*e1/1024;//正算常量系数k2
   public static final double k3 = 15*e1*e1/256 + 45*e1*e1*e1/1024;//正算常量系数k3
@@ -23,7 +22,7 @@ public class GaussKruger {
   public static final double _k4 = 1097*_e4/512;
 
   /**
-   *
+   * 经纬度转空间坐标
    * @param k0 投影比例因子
    * @param l0 中央子午线经度
    * @param ll 经纬度
@@ -57,7 +56,7 @@ public class GaussKruger {
 
 
   /**
-   *
+   * 空间坐标转化成经纬度
    * @param k0 投影比例因子
    * @param l0 中央子午线经度
    * @param xy UTM坐标
