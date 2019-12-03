@@ -15,5 +15,6 @@ public class Main {
         double[] xy = GaussKruger.ll2xy(1, L0, lon, lat);
         double[] ll = GaussKruger.xy2ll(1, L0, xy);
         System.out.println(String.format("[%f, %f]\n\t[%f, %f]\n[%f, %f]", lon, lat, xy[0], xy[1], ll[0], ll[1]));
+
     }
 }

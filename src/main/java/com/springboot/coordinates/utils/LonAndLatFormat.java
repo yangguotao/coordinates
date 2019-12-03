@@ -23,8 +23,10 @@ public class LonAndLatFormat {
         String rpm = "";
         if (decimalValue > 0) {
             int degrees = (int) decimalValue;
-            double minutes = (decimalValue - degrees) * 60;
-            double seconds = (minutes - (int) minutes) * 60;
+            double minutes = (decimalValue - degrees) * 60,
+                   seconds = (minutes - (int) minutes) * 60;
+            minutes = MyMath.round(minutes, 8);
+            seconds = MyMath.round(seconds, 8);
             String strMinutes;
             String strSeconds;
             if ((int) minutes < 10) {
