@@ -25,8 +25,8 @@ public class LonAndLatFormat {
             int degrees = (int) decimalValue;
             double minutes = (decimalValue - degrees) * 60,
                    seconds = (minutes - (int) minutes) * 60;
-            minutes = MyMath.round(minutes, 8);
-            seconds = MyMath.round(seconds, 8);
+            minutes = Math_Double.round(minutes, 8);
+            seconds = Math_Double.round(seconds, 8);
             String strMinutes;
             String strSeconds;
             if ((int) minutes < 10) {

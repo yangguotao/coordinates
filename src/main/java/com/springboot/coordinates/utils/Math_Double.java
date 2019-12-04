@@ -9,12 +9,12 @@ import java.math.BigDecimal;
  * @Date: 2019/12/3
  * @Version 1.0
  */
-public class MyMath {
+public class Math_Double {
 
 
     public static final int DEF_DIV_SCALE = 10;//除法精确到小数点后位数
 
-    private MyMath() {
+    private Math_Double() {
     }
 
     /**
