@@ -105,6 +105,7 @@ public class WriteExcel {
                             Cell _BCell = newRow.createCell(_B);
                             _LCell.setCellValue(_l);
                             _BCell.setCellValue(_b);
+                            break;
                         }
                     }
                 }
