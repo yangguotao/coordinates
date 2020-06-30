@@ -23,17 +23,21 @@ import java.util.List;
 public class WriteExcel {
 
     private Logger logger = LoggerFactory.getLogger(WriteExcel.class);
-    private static final String EXCEL_XLS = "xls";//2003版
-    private static final String EXCEL_XLSX = "xlsx";//2007/2010
-    private static final String X_STR = "x轴(7)";//表格中x轴的标记
-    private static final String Y_STR = "y轴(6)";//表格中x轴的标记
+    //2003版
+    private static final String EXCEL_XLS = "xls";
+    //2007/2010
+    private static final String EXCEL_XLSX = "xlsx";
+    //表格中x轴的标记
+    private static final String X_STR = "x轴(7)";
+    //表格中x轴的标记
+    private static final String Y_STR = "y轴(6)";
     private static final String B_STR = "B(纬度)";//表格中十进制纬度的标记
     private static final String L_STR = "L(经度)";//表格中十进制经度的标记
     private static final String _B_STR = "_B(纬度)";//表格中度分秒纬度的标记
     private static final String _L_STR = "_L(经度)";//表格中度分秒经度的标记
     //private static final double L0 =  111.0000070986107947;
-    private static final double L0 =  111.0000072;
-   // private static final double L0 = ‬111.00000708333333;
+    private static final double L0 = 111.0000072;
+    // private static final double L0 = ‬111.00000708333333;
     private static final double K0 = 1.0; //投影比例因子
     private int x = -1, y = -1, B = -1, L = -1, _B = -1, _L = -1;
 
@@ -92,7 +96,6 @@ public class WriteExcel {
                             double n = TempArry[1];
                             //计算数据
                             ll = GaussKruger.xy2ll(K0, L0, TempArry[0], TempArry[1]);
-                            //System.out.println(String.format("[%f, %f]",  ll[0], ll[1]));
                             //保存转换数据
                             Cell LCell = newRow.createCell(L);
                             Cell BCell = newRow.createCell(B);

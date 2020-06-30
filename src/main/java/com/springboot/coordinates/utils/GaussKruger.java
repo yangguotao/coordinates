@@ -1,30 +1,40 @@
 package com.springboot.coordinates.utils;
 
 public class GaussKruger {
-
-    public static final double  E0 = 500000,//经度偏离常数
-                                N0 = 0,//纬度偏离常熟
-                                a = 6378137.0,//6378140;椭球长半径
-                                //f = Math_Double.div(1,298.257223563),//椭球扁率 wgs84
-                                //b = a*(1-f),//6356755;椭球短半径
-                                f = Math_Double.div(1,298.257222101),//椭球扁率 wgs84
-                                b = a*(1-f),//6356752.31414;椭球短半径
-                                e1 = 1 - Math_Double.div(b , a) * Math_Double.div(b , a),//椭球第一偏心率平方
-                                e2 = Math_Double.div(a , b) * Math_Double.div(a , b) - 1,//椭球第二偏心率平方
-//                                e1 = 1 - (b / a) * (b / a),//椭球第一偏心率平方
-//                                e2 = (a / b) * (a / b) - 1,//椭球第二偏心率平方
-                                k1 = 1 - 0.25 * e1 - Math_Double.div(3 * e1 * e1, 64) - Math_Double.div(5 * e1 * e1 * e1, 256), //正算常量系数k1
-                                k2 = -Math_Double.div(3 * e1, 8) - Math_Double.div(3 * e1 * e1, 32) - Math_Double.div(45 * e1 * e1 * e1, 1024),//正算常量系数k2
-                                k3 = Math_Double.div(15 * e1 * e1, 256) + Math_Double.div(45 * e1 * e1 * e1, 1024),//正算常量系数k3
-                                k4 = -Math_Double.div(35 * e1 * e1 * e1, 3072),//正算常量系数k4
-                                _e = Math_Double.div(a - b, a + b),
-                                _e2 = _e * _e,
-                                _e3 = _e2 * _e,
-                                _e4 = _e2 * _e2,
-                                _k1 = 1.5 * _e - Math_Double.div(7 * _e3, 32),
-                                _k2 = Math_Double.div(21 * _e2, 16) - Math_Double.div(55 * _e4, 32),
-                                _k3 = Math_Double.div(151 * _e3, 96),
-                                _k4 = Math_Double.div(1097 * _e4, 512);
+    /*经度偏离常数*/
+    public static final double E0 = 500000,
+    //纬度偏离常熟
+            N0 = 0,
+            //6378140;椭球长半径
+            a = 6378137.0,
+            //f = Math_Double.div(1,298.257223563),//椭球扁率 wgs84
+            //b = a*(1-f),//6356755;椭球短半径
+            //椭球扁率 wgs84
+            f = Math_Double.div(1, 298.257222101),
+            //6356752.31414;椭球短半径
+            b = a * (1 - f),
+            //椭球第一偏心率平方
+            e1 = 1 - Math_Double.div(b, a) * Math_Double.div(b, a),
+            //椭球第二偏心率平方
+            e2 = Math_Double.div(a, b) * Math_Double.div(a, b) - 1,
+            //  e1 = 1 - (b / a) * (b / a),//椭球第一偏心率平方
+            // e2 = (a / b) * (a / b) - 1,//椭球第二偏心率平方
+            //正算常量系数k1
+            k1 = 1 - 0.25 * e1 - Math_Double.div(3 * e1 * e1, 64) - Math_Double.div(5 * e1 * e1 * e1, 256),
+            //正算常量系数k2
+            k2 = -Math_Double.div(3 * e1, 8) - Math_Double.div(3 * e1 * e1, 32) - Math_Double.div(45 * e1 * e1 * e1, 1024),
+            //正算常量系数k3
+            k3 = Math_Double.div(15 * e1 * e1, 256) + Math_Double.div(45 * e1 * e1 * e1, 1024),
+            //正算常量系数k4
+            k4 = -Math_Double.div(35 * e1 * e1 * e1, 3072),
+            _e = Math_Double.div(a - b, a + b),
+            _e2 = _e * _e,
+            _e3 = _e2 * _e,
+            _e4 = _e2 * _e2,
+            _k1 = 1.5 * _e - Math_Double.div(7 * _e3, 32),
+            _k2 = Math_Double.div(21 * _e2, 16) - Math_Double.div(55 * _e4, 32),
+            _k3 = Math_Double.div(151 * _e3, 96),
+            _k4 = Math_Double.div(1097 * _e4, 512);
 
     /**
      * 经纬度转空间坐标
@@ -35,8 +45,10 @@ public class GaussKruger {
      * @return UTM坐标
      */
     public static double[] ll2xy(double k0, double l0, Double... ll) {
-        double l = Math.toRadians(ll[0] - l0);//经度差转弧度
-        double b = Math.toRadians(ll[1]);//纬度转弧度
+        //经度差转弧度
+        double l = Math.toRadians(ll[0] - l0);
+        //纬度转弧度
+        double b = Math.toRadians(ll[1]);
         double sinB = Math.sin(b);
         double sin2B = Math.sin(2 * b);
         double sin4B = Math.sin(4 * b);
@@ -70,7 +82,7 @@ public class GaussKruger {
      * @return 经纬度
      */
     public static double[] xy2ll(double k0, double l0, double... xy) {
-        double  Mf = Math_Double.div(xy[0] - N0, k0),
+        double Mf = Math_Double.div(xy[0] - N0, k0),
                 B1 = Math_Double.div(Mf, a * k1),
                 sin2B1 = Math.sin(2 * B1),
                 sin4B1 = Math.sin(4 * B1),
@@ -80,7 +92,7 @@ public class GaussKruger {
                 sinBf = Math.sin(Bf),
                 cosBf = Math.cos(Bf),
                 tanBf = Math.tan(Bf),
-                Nf = a / Math.sqrt(1 - e1 * sinBf * sinBf),//
+                Nf = a / Math.sqrt(1 - e1 * sinBf * sinBf),
                 Tf = tanBf * tanBf,
                 Tf2 = Tf * Tf,
                 Cf = e2 * cosBf * cosBf,
@@ -96,22 +108,17 @@ public class GaussKruger {
                 // double l2 = (D - (1 + 2 * Tf + Cf) * D3 / 6 + (5 - 2 * Cf + 28 * Tf - 3 * Cf2 + 8 * e2 + 24 * Tf2) * D5 / 120) / cosBf;
                 // double  b3 = Bf - Nf * tanBf / Rf * (0.5 * D2 - (5 + 3 * Tf + 10 * Cf - 4 * Cf2 - 9 * e2) * D4 / 24 + (61 + 90 * Tf + 298 * Cf + 45 * Tf2 - 252 * e2 - 3 * Cf2) * D6 / 720);
                 l = Math_Double.div(
-                    (D - Math_Double.div((1 + 2 * Tf + Cf) * D3, 6)
-                            +
-                            Math_Double.div((5 - 2 * Cf + 28 * Tf - 3 * Cf2 + 8 * e2 + 24 * Tf2) * D5, 120)
-                    ) , cosBf),
+                        (D - Math_Double.div((1 + 2 * Tf + Cf) * D3, 6)
+                                +
+                                Math_Double.div((5 - 2 * Cf + 28 * Tf - 3 * Cf2 + 8 * e2 + 24 * Tf2) * D5, 120)
+                        ), cosBf),
                 b1 = 5 + 3 * Tf + 10 * Cf - 4 * Cf2 - 9 * e2,
                 b2 = 61 + 90 * Tf + 298 * Cf + 45 * Tf2 - 252 * e2 - 3 * Cf2,
                 _b1_1 = b1 * D4,
-                _b1 = Math_Double.div(_b1_1,24),
+                _b1 = Math_Double.div(_b1_1, 24),
                 _b2_1 = b2 * D6,
-                _b2 = Math_Double.div(_b2_1,720),
-                b = Bf - Math_Double.div(Nf * tanBf , Rf )* (0.5 * D2 - _b1 + _b2);
+                _b2 = Math_Double.div(_b2_1, 720),
+                b = Bf - Math_Double.div(Nf * tanBf, Rf) * (0.5 * D2 - _b1 + _b2);
         return new double[]{Math.toDegrees(l) + l0, Math.toDegrees(b)};
-    }
-    //十分制纬度
-    public static void tests(double d1){
-        double d1_10 =  Math.toRadians(d1);
-        
     }
 }

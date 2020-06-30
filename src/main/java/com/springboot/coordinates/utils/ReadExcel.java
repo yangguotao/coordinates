@@ -37,8 +37,9 @@ public class ReadExcel {
             System.out.println(file.getAbsolutePath());
             InputStream is = new FileInputStream(file.getAbsolutePath());
             Workbook workbook = Workbook.getWorkbook(is);
-            int sheets_Number = workbook.getNumberOfSheets();//获取sheets页数
-            for (int index = 0; index < sheets_Number; index++) {
+            //获取sheets页数
+            int sheetsNumber = workbook.getNumberOfSheets();
+            for (int index = 0; index < sheetsNumber; index++) {
                 Sheet sheet = workbook.getSheet(index);
                 for (int i = 0; i < sheet.getRows(); i++) {
                     List<Object> innerList = new ArrayList<>();
@@ -70,8 +71,9 @@ public class ReadExcel {
             System.out.println(file.getAbsolutePath());
             InputStream is = new FileInputStream(file.getAbsolutePath());
             Workbook workbook = Workbook.getWorkbook(is);
-            int sheets_Number = workbook.getNumberOfSheets();//获取sheets页数
-            for (int index = 0; index < sheets_Number; index++) {
+            //获取sheets页数
+            int sheetsNumber = workbook.getNumberOfSheets();
+            for (int index = 0; index < sheetsNumber; index++) {
                 Sheet sheet = workbook.getSheet(index);
                 for (int i = 0; i < sheet.getRows(); i++) {
                     Cell[] cells = sheet.getRow(i);
