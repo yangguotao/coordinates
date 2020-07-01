@@ -4,29 +4,29 @@ public class GaussKruger {
     /*经度偏离常数*/
     public static final double E0 = 500000,
     //纬度偏离常熟
-            N0 = 0,
-            //6378140;椭球长半径
-            a = 6378137.0,
-            //f = Math_Double.div(1,298.257223563),//椭球扁率 wgs84
-            //b = a*(1-f),//6356755;椭球短半径
-            //椭球扁率 wgs84
-            f = Math_Double.div(1, 298.257222101),
-            //6356752.31414;椭球短半径
-            b = a * (1 - f),
-            //椭球第一偏心率平方
-            e1 = 1 - Math_Double.div(b, a) * Math_Double.div(b, a),
-            //椭球第二偏心率平方
-            e2 = Math_Double.div(a, b) * Math_Double.div(a, b) - 1,
-            //  e1 = 1 - (b / a) * (b / a),//椭球第一偏心率平方
-            // e2 = (a / b) * (a / b) - 1,//椭球第二偏心率平方
-            //正算常量系数k1
-            k1 = 1 - 0.25 * e1 - Math_Double.div(3 * e1 * e1, 64) - Math_Double.div(5 * e1 * e1 * e1, 256),
-            //正算常量系数k2
-            k2 = -Math_Double.div(3 * e1, 8) - Math_Double.div(3 * e1 * e1, 32) - Math_Double.div(45 * e1 * e1 * e1, 1024),
-            //正算常量系数k3
-            k3 = Math_Double.div(15 * e1 * e1, 256) + Math_Double.div(45 * e1 * e1 * e1, 1024),
-            //正算常量系数k4
-            k4 = -Math_Double.div(35 * e1 * e1 * e1, 3072),
+    N0 = 0,
+    //6378140;椭球长半径
+    a = 6378137.0,
+    //f = Math_Double.div(1,298.257223563),//椭球扁率 wgs84
+    //b = a*(1-f),//6356755;椭球短半径
+    //椭球扁率 wgs84
+    f = Math_Double.div(1, 298.257222101),
+    //6356752.31414;椭球短半径
+    b = a * (1 - f),
+    //椭球第一偏心率平方
+    e1 = 1 - Math_Double.div(b, a) * Math_Double.div(b, a),
+    //椭球第二偏心率平方
+    e2 = Math_Double.div(a, b) * Math_Double.div(a, b) - 1,
+    //  e1 = 1 - (b / a) * (b / a),//椭球第一偏心率平方
+    // e2 = (a / b) * (a / b) - 1,//椭球第二偏心率平方
+    //正算常量系数k1
+    k1 = 1 - 0.25 * e1 - Math_Double.div(3 * e1 * e1, 64) - Math_Double.div(5 * e1 * e1 * e1, 256),
+    //正算常量系数k2
+    k2 = -Math_Double.div(3 * e1, 8) - Math_Double.div(3 * e1 * e1, 32) - Math_Double.div(45 * e1 * e1 * e1, 1024),
+    //正算常量系数k3
+    k3 = Math_Double.div(15 * e1 * e1, 256) + Math_Double.div(45 * e1 * e1 * e1, 1024),
+    //正算常量系数k4
+    k4 = -Math_Double.div(35 * e1 * e1 * e1, 3072),
             _e = Math_Double.div(a - b, a + b),
             _e2 = _e * _e,
             _e3 = _e2 * _e,
@@ -65,8 +65,10 @@ public class GaussKruger {
         double A4 = A2 * A2;
         double A5 = A3 * A2;
         double A6 = A3 * A3;
-        double N = a / Math.sqrt(1 - e1 * sinB * sinB);//经度偏移量
-        double M = a * (k1 * b + k2 * sin2B + k3 * sin4B + k4 * sin6B);//纬度偏移量
+        //经度偏移量
+        double N = a / Math.sqrt(1 - e1 * sinB * sinB);
+        //纬度偏移量
+        double M = a * (k1 * b + k2 * sin2B + k3 * sin4B + k4 * sin6B);
         double x = N0 + k0 * (M + N * tanB * (0.5 * A2 + (5 - T + 9 * C + 4 * C2) * A4 / 24) + (61 - 58 * T + T2 + 600 * C - 300 * e2) * A6 / 720);//纬度
         double y = E0 + k0 * N * (A + Math_Double.div((1 - T + C) * A3, 6) + Math_Double.div((5 - 18 * T + T2 + 72 * C - 58 * e2) * A5, 120));//经度
         return new double[]{x, y};
@@ -105,8 +107,6 @@ public class GaussKruger {
                 D4 = D2 * D2,
                 D5 = D3 * D2,
                 D6 = D3 * D3,
-                // double l2 = (D - (1 + 2 * Tf + Cf) * D3 / 6 + (5 - 2 * Cf + 28 * Tf - 3 * Cf2 + 8 * e2 + 24 * Tf2) * D5 / 120) / cosBf;
-                // double  b3 = Bf - Nf * tanBf / Rf * (0.5 * D2 - (5 + 3 * Tf + 10 * Cf - 4 * Cf2 - 9 * e2) * D4 / 24 + (61 + 90 * Tf + 298 * Cf + 45 * Tf2 - 252 * e2 - 3 * Cf2) * D6 / 720);
                 l = Math_Double.div(
                         (D - Math_Double.div((1 + 2 * Tf + Cf) * D3, 6)
                                 +
