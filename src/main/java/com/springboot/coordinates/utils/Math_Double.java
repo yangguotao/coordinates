@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 public class Math_Double {
 
-    //除法精确到小数点后位数
+    //除法精确到小数点后位数()
     public static final int DEF_DIV_SCALE = 10;
 
     private Math_Double() {
